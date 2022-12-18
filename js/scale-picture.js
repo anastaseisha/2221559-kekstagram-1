@@ -1,12 +1,12 @@
-import {DEFAULT_SIZE, MIN_SIZE, MAX_SIZE, SIZE_STEP} from './data-constants.js';
+import {DEFAULT_SIZE, MIN_SIZE, MAX_SIZE, SIZE_STEP} from './data.js';
 
 const lessButton = document.querySelector('.scale__control--smaller');
 const moreButton = document.querySelector('.scale__control--bigger');
 const scaleValue = document.querySelector('.scale__control--value');
-const imgPreview = document.querySelector('.img-upload__preview img');
+const preview = document.querySelector('.img-upload__preview img');
 
 const scaleImg = (value = DEFAULT_SIZE) => {
-  imgPreview.style.transform = `scale(${value / 100})`;
+  preview.style.transform = `scale(${value / 100})`;
   scaleValue.value = `${value}%`;
 };
 

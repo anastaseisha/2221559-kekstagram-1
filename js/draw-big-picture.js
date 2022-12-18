@@ -1,11 +1,11 @@
-import {LOAD_COMMENTS} from './data-constants.js';
+import {LOAD_COMMENTS} from './data.js';
 import {isEscapeKey} from './util.js';
 
 const body = document.querySelector('body');
 const bigPicture = document.querySelector('.big-picture');
 const bigPictureImg = bigPicture.querySelector('.big-picture__img').querySelector('img');
 const countLikes = bigPicture.querySelector('.likes-count');
-const countComments = bigPicture.querySelector('.comments-count');
+const commentsCount = bigPicture.querySelector('.comments-count');
 const description = bigPicture.querySelector('.social__caption');
 const commentsList = bigPicture.querySelector('.social__comments');
 const closeButton = bigPicture.querySelector('.big-picture__cancel');
@@ -44,36 +44,36 @@ const renderComments =  (commentsArrForLoad) => {
 const createInfoBigPicture  = (photoInfo) => {
   bigPictureImg.src = photoInfo.url;
   countLikes.textContent = photoInfo.likes;
-  countComments.textContent = photoInfo.comments.length;
+  commentsCount.textContent = photoInfo.comments.length;
   description.textContent = photoInfo.description;
   commentsList.innerHTML = '';
   commentsArrayCopy = photoInfo.comments;
   renderComments(commentsArrayCopy.slice());
 };
 
-const addComments = () => {
+function addComments () {
   renderComments(commentsArrayCopy.slice());
-};
+}
 
-const openBigPicture = () => {
+const openBigPicture = function () {
   bigPicture.classList.remove('hidden');
   body.classList.add('modal-open');
   loadCommentsButton.addEventListener('click', addComments);
 };
 
-const closeBigPicture = () => {
+const closeBigPicture = function () {
   bigPicture.classList.add('hidden');
   body.classList.remove('modal-open');
 };
 
-const closeBigPictureEsc = (evt) => {
+const closeBigPictureEsc = function (evt) {
   if (isEscapeKey(evt)) {
     evt.preventDefault();
     closeBigPicture();
   }
 };
 
-const drawBigPicture = (photoInfo) => {
+const drawBigPicture = function (photoInfo) {
   openBigPicture();
   createInfoBigPicture(photoInfo);
   closeButton.addEventListener('click', closeBigPicture);

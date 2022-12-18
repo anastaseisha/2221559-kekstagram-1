@@ -1,8 +1,8 @@
-import {EFFECTS} from './data-constants.js';
+import {EFFECTS} from './data.js';
 
 const sliderElement = document.querySelector('.effect-level__slider');
 const effectLevelValue = document.querySelector('.effect-level__value');
-const uploadedImgPrewiev = document.querySelector('.img-upload__preview img');
+const uploadedImg = document.querySelector('.img-upload__preview img');
 const effectsList = document.querySelector('.effects__list');
 const slider = document.querySelector('.img-upload__effect-level');
 
@@ -21,12 +21,13 @@ noUiSlider.create(sliderElement, {
 const installSlider = (filter) => {
   if (filter === 'none') {
     slider.classList.add('hidden');
-    uploadedImgPrewiev.style.filter = 'none';
+    uploadedImg.style.filter = 'none';
     currentFilter = 'none';
     return;
+  } else {
+    slider.classList.remove('hidden');
   }
-  slider.classList.remove('hidden');
-  uploadedImgPrewiev.classList.remove(`effects__preview--${currentFilter}`);
+  uploadedImg.classList.remove(`effects__preview--${currentFilter}`);
   currentFilter = filter;
   sliderElement.noUiSlider.updateOptions({
     range: {
@@ -36,13 +37,13 @@ const installSlider = (filter) => {
     step: EFFECTS[filter].step,
     start: EFFECTS[filter].max,
   });
-  uploadedImgPrewiev.classList.add(`effects__preview--${filter}`);
-  uploadedImgPrewiev.style.filter = `${EFFECTS[filter].filter}(${effectLevelValue}${EFFECTS[filter].unit})`;
+  uploadedImg.classList.add(`effects__preview--${filter}`);
+  uploadedImg.style.filter = `${EFFECTS[filter].filter}(${effectLevelValue}${EFFECTS[filter].unit})`;
 };
 
 sliderElement.noUiSlider.on('update', () => {
   effectLevelValue.value = sliderElement.noUiSlider.get();
-  uploadedImgPrewiev.style.filter = `${EFFECTS[currentFilter].filter}(${effectLevelValue.value}${EFFECTS[currentFilter].unit})`;
+  uploadedImg.style.filter = `${EFFECTS[currentFilter].filter}(${effectLevelValue.value}${EFFECTS[currentFilter].unit})`;
 });
 
 const changeImgEffect = (evt) => {
